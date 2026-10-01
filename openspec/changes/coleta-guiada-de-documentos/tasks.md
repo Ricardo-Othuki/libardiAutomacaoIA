@@ -22,8 +22,9 @@
 - [x] 1.12 Portal do cliente, versão celular: lista de itens em linguagem simples, envio por item, envio de documento adicional, progresso e confirmação de recebimento, verificando em largura de tela de celular — `/portal/[token]`
 - [x] 1.13 Portal do cliente, estados de exceção: link expirado, link revogado, formato recusado, conexão interrompida e envio retomado, verificando que nenhuma mensagem exibe termo técnico — `/portal/[token]?estado=...`
 - [x] 1.14 Tela de histórico e auditoria do processo, verificando que exibe autor, ação e data e hora de cada evento — `/advogado/processos/[id]/historico`
-- [ ] 1.15 Ligar as telas em um protótipo navegável com dados fictícios e publicar a prévia, verificando que os dois percursos completos são percorríveis: advogado abre processo até exportar, e cliente recebe link até concluir envio — navegação entre as telas já está ligada (sidebar, abas do processo, links do portal); falta só "publicar a prévia", que também fica para depois da aprovação
+- [x] 1.15 Ligar as telas em um protótipo navegável com dados fictícios e publicar a prévia, verificando que os dois percursos completos são percorríveis: advogado abre processo até exportar, e cliente recebe link até concluir envio — navegação ligada e prévia publicada em https://web-eight-taupe-96.vercel.app
 - [ ] 1.16 Apresentar o protótipo para análise e obter aprovação explícita antes de prosseguir
+- [x] 1.17 Refinar o aproveitamento de espaço e a hierarquia visual das telas de processo e do catálogo de modelos, com as abas do fluxo do processo (Checklist / Link / Dossiê / Cobrança / Histórico) como cards grandes em vez de abas de texto, verificando em largura de desktop que nenhuma tela fica com área ociosa desproporcional ao conteúdo — abas do processo, itens do catálogo/checklist e a tela de abrir processo agora em grade, sem largura desperdiçada
 
 ## 2. Fundação e segurança
 

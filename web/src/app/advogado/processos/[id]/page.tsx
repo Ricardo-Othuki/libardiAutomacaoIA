@@ -54,11 +54,11 @@ export default function ProcessoPage({ params }: { params: Promise<{ id: string 
         {blocos.map((bloco) => (
           <div key={bloco}>
             <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted">{bloco}</h2>
-            <div className="space-y-2">
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {itens
                 .filter((i) => i.bloco === bloco)
                 .map((item) => (
-                  <Card key={item.id}>
+                  <Card key={item.id} className="flex flex-col">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div>
                         <p className="font-medium text-foreground">
@@ -157,7 +157,7 @@ export default function ProcessoPage({ params }: { params: Promise<{ id: string 
             Estes arquivos não entram no dossiê até você vincular a um item,
             criar um item novo ou descartar.
           </Aviso>
-          <div className="mt-2 space-y-2">
+          <div className="mt-2 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {processoOriginal.triagem.map((t) => (
               <Card key={t.id} className="flex flex-wrap items-center justify-between gap-2">
                 <div>

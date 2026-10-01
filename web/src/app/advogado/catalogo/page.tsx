@@ -2,12 +2,17 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { FileWarning, Scale } from "lucide-react";
 import { AjudaDaTela } from "@/components/ui/AjudaDaTela";
 import { Aviso } from "@/components/ui/Aviso";
 import { Botao } from "@/components/ui/Botao";
 import { Card } from "@/components/ui/Card";
 import { MODELOS } from "@/lib/mock/data";
 import type { BlocoModelo } from "@/lib/types";
+
+function contarItens(m: (typeof MODELOS)[number]): number {
+  return m.blocos.reduce((soma, b) => soma + b.itens.length, 0);
+}
 
 function mover<T>(lista: T[], de: number, para: number): T[] {
   if (para < 0 || para >= lista.length) return lista;
@@ -49,25 +54,40 @@ export default function CatalogoPage() {
         criado a partir deste modelo for exportado.
       </AjudaDaTela>
 
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap gap-2">
-          {MODELOS.map((m) => (
-            <Botao
-              key={m.id}
-              compacto
-              variante={m.id === modeloId ? "primario" : "secundario"}
-              legenda={`Mostrar o modelo de ${m.nome}`}
-              onClick={() => trocarModelo(m.id)}
-            >
-              {m.nome}
-            </Botao>
-          ))}
-        </div>
+      <div className="mb-4 flex items-center justify-end">
         <Link href="/advogado/catalogo/importar">
           <Botao compacto variante="secundario" legenda="Cria um modelo novo colando uma lista de texto">
             Importar lista em texto
           </Botao>
         </Link>
+      </div>
+
+      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        {MODELOS.map((m) => {
+          const ativo = m.id === modeloId;
+          return (
+            <button
+              key={m.id}
+              type="button"
+              onClick={() => trocarModelo(m.id)}
+              className={`rounded-xl border p-4 text-left transition-all ${
+                ativo
+                  ? "border-primary bg-primary text-primary-contrast shadow-theme-md"
+                  : "border-border bg-surface text-foreground hover:-translate-y-0.5 hover:shadow-theme-sm"
+              }`}
+            >
+              {m.incompleto ? (
+                <FileWarning size={20} className={ativo ? "text-primary-contrast" : "text-warning"} />
+              ) : (
+                <Scale size={20} className={ativo ? "text-primary-contrast" : "text-primary"} />
+              )}
+              <p className="mt-2 text-sm font-semibold">{m.nome}</p>
+              <p className={`mt-0.5 text-xs ${ativo ? "text-primary-contrast/80" : "text-muted"}`}>
+                {m.area} · {contarItens(m)} itens{m.incompleto ? " · incompleto" : ""}
+              </p>
+            </button>
+          );
+        })}
       </div>
 
       {modeloOriginal.incompleto && (
@@ -96,9 +116,9 @@ export default function CatalogoPage() {
                 </Botao>
               </div>
             </div>
-            <ul className="space-y-1">
+            <ul className="grid gap-2 sm:grid-cols-2">
               {bloco.itens.map((item, ii) => (
-                <li key={item.id} className="flex items-center justify-between rounded-md border border-border px-3 py-2">
+                <li key={item.id} className="flex items-center justify-between gap-2 rounded-md border border-border px-3 py-2">
                   <div>
                     <p className="text-sm text-foreground">
                       {item.nomeTecnico}{" "}

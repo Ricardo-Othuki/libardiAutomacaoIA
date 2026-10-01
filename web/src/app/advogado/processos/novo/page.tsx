@@ -18,15 +18,15 @@ export default function NovoProcessoPage() {
   const modelo = MODELOS.find((m) => m.id === modeloId)!;
 
   return (
-    <div className="max-w-2xl">
+    <div>
       <AjudaDaTela titulo="Abrir novo processo">
         Escolha o cliente e o tipo de causa. A checklist à direita é só uma
         prévia — ela é copiada para o processo e pode ser ajustada depois sem
         alterar o modelo original.
       </AjudaDaTela>
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        <Card className="space-y-4">
+      <div className="grid gap-6 lg:grid-cols-[22rem_1fr]">
+        <Card className="h-fit space-y-4">
           <Campo
             rotulo="Nome do cliente"
             id="cliente"
@@ -62,11 +62,11 @@ export default function NovoProcessoPage() {
 
         <Card>
           <h2 className="text-sm font-semibold text-foreground">Prévia da checklist — {modelo.nome}</h2>
-          <div className="mt-3 space-y-4">
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {modelo.blocos.map((bloco) => (
-              <div key={bloco.id}>
+              <div key={bloco.id} className="rounded-lg border border-border p-3">
                 <p className="text-xs font-semibold uppercase tracking-wide text-muted">{bloco.nome}</p>
-                <ul className="mt-1 space-y-1">
+                <ul className="mt-2 space-y-1.5">
                   {bloco.itens.map((item) => (
                     <li key={item.id} className="text-sm text-foreground/80">
                       • {item.nomeTecnico}
