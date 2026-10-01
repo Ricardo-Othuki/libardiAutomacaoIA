@@ -1,0 +1,95 @@
+schema: spec-driven
+
+context: |
+  IDIOMA: todos os artefatos, codigo, comentarios e interface em PT-BR.
+
+  PRODUTO
+  Ferramenta para advogado autonomo brasileiro reduzir o tempo entre a
+  contratacao do cliente e o protocolo da peticao inicial. O gargalo real
+  nao e organizar arquivos: e o tempo morto esperando o cliente enviar os
+  documentos, somado a perda de controle sobre o que ainda falta.
+
+  USUARIOS
+  - Advogado (usuario principal): opera o sistema, monta o dossie.
+  - Cliente do advogado (usuario secundario): so envia documentos por link,
+    sem cadastro, sem senha, sem instalar nada. Pouca intimidade com
+    tecnologia. A tela dele precisa ser obvia.
+
+  DOMINIO
+  Areas de maior fluxo: trabalhista, imobiliario, familia e sucessoes,
+  civel e indenizatorias. Tambem atua em ambiental e ecovilas.
+  Cada tipo de causa tem uma lista propria de documentos exigidos, escrita
+  pelo advogado. Essa lista e o ativo central do produto: serve como
+  checklist do que pedir, rastreador do que falta e rotulo do que chegou.
+
+  REGRAS DO FORO
+  - Tribunais usam sistemas diferentes: PJe (principal), eproc, Projudi.
+  - Cada prova e anexada como um PDF separado, nunca um PDF unico.
+  - Ha limite de tamanho por arquivo; PDF pesado precisa ser comprimido
+    ou fragmentado.
+  - Ordem convencional dos anexos: procuracao e documentos de identidade,
+    depois comprovantes de hipossuficiencia, depois as provas agrupadas
+    por bloco de argumentacao.
+
+  DECISAO DE ARQUITETURA CENTRAL
+  A numeracao DOC. N e atribuida apenas na exportacao. Durante a redacao o
+  documento e referenciado por identificador estavel, nunca por numero.
+  Motivo: em peticoes reais analisadas, as de 13 documentos sairam com
+  numeracao correta, mas as de 15 e 31 documentos sairam fora de ordem, uma
+  delas com um numero citado em nenhum ponto do texto. O erro escala com o
+  volume. Numeracao tardia elimina a classe inteira de defeito.
+
+  STACK
+  - Supabase: banco Postgres, autenticacao, armazenamento de arquivos.
+  - Vercel: hospedagem da aplicacao web.
+  - n8n: automacoes assincronas (lembretes ao cliente, conversoes,
+    notificacoes). Nunca no caminho critico de uma requisicao do usuario.
+  - GitHub: versionamento.
+
+  RESTRICAO TECNICA CONHECIDA
+  Funcoes serverless da Vercel limitam o corpo da requisicao a poucos MB.
+  Upload de documentos deve ir do navegador direto ao Supabase Storage por
+  URL assinada, sem passar pelo servidor da aplicacao.
+
+  SEGURANCA (requisito de primeira ordem, nao item de checklist)
+  - Documento sob sigilo profissional e dado pessoal sensivel sob a LGPD.
+  - Todo acesso a dados passa por Row Level Security no Supabase. Nenhuma
+    consulta confia em filtro feito apenas no cliente.
+  - Link de envio ao cliente: token aleatorio de alta entropia, com prazo
+    de validade, revogavel, escopo limitado a um unico processo e sem
+    permissao de leitura dos documentos ja enviados.
+  - Arquivo nunca e servido por URL publica e permanente. Somente URL
+    assinada de curta duracao.
+  - Todo acesso a documento e registrado em trilha de auditoria.
+  - Arquivo enviado e tratado como conteudo hostil ate prova em contrario:
+    valida tipo real pelo conteudo e nao pela extensao, limita tamanho,
+    e nunca executa nem renderiza em contexto privilegiado.
+  - Segredo nunca no repositorio nem no bundle do navegador.
+
+  RESTRICOES DE PRODUTO
+  - O sistema propoe, o advogado confirma. Classificacao automatica erra e a
+    responsabilidade profissional e do advogado. Nenhuma decisao automatica
+    entra no dossie final sem confirmacao humana.
+  - Antes de escrever codigo, toda tela passa por aprovacao do usuario.
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always include a "Non-goals" section
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
+
+# Per-operation guidance (optional)
+# Add advisory guidance for how apply and archive work should be conducted.
+# This is separate from artifact rules above.
+# Example:
+#   operations:
+#     apply:
+#       guidance:
+#         - Keep test summaries concise
+#     archive:
+#       guidance:
+#         - Summarize the archive outcome before finishing

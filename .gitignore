@@ -1,0 +1,12 @@
+# Segredos — nunca versionar.
+.env
+.env.*
+
+# Material de referência com dados reais de clientes do escritório (CPF,
+# RG, peças de processos reais) — usado só para orientar o desenvolvimento,
+# nunca publicado. Ver nota em
+# openspec/changes/coleta-guiada-de-documentos/tasks.md (tarefa 1.10a).
+materiais-e-conversas-coIan/
+
+# Sistema
+.DS_Store

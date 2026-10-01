@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/* Paleta baseada no TailAdmin / Untitled UI (azul "brand" #465fff, cinza
+   neutro com superfície escura especial), adaptada aos tokens semânticos
+   que o resto do sistema usa. Tema escuro é o padrão; data-theme="light"
+   no <html> (alternado pelo ThemeToggle) sobrescreve para o claro. */
+:root {
+  --background: #0c111d;
+  --foreground: #f2f4f7;
+
+  --color-surface: #1a2231;
+  --color-surface-alt: #161d2b;
+  --color-border: #263040;
+  --color-muted: #98a2b3;
+
+  --color-primary: #465fff;
+  --color-primary-hover: #7592ff;
+  --color-primary-contrast: #ffffff;
+
+  --color-success: #32d583;
+  --color-success-bg: #053321;
+  --color-warning: #fdb022;
+  --color-warning-bg: #4e1d09;
+  --color-danger: #f97066;
+  --color-danger-bg: #55160c;
+  --color-info: #36bffa;
+  --color-info-bg: #062c41;
+
+  --shadow-theme-xs: 0px 1px 2px 0px rgba(16, 24, 40, 0.25);
+  --shadow-theme-sm: 0px 1px 3px 0px rgba(16, 24, 40, 0.35), 0px 1px 2px 0px rgba(16, 24, 40, 0.2);
+  --shadow-theme-md: 0px 4px 8px -2px rgba(16, 24, 40, 0.35), 0px 2px 4px -2px rgba(16, 24, 40, 0.2);
+  --shadow-tooltip: 0px 4px 6px -2px rgba(0, 0, 0, 0.2), 0px 12px 16px -4px rgba(0, 0, 0, 0.3);
+}
+
+:root[data-theme="light"] {
+  --background: #f9fafb;
+  --foreground: #101828;
+
+  --color-surface: #ffffff;
+  --color-surface-alt: #f2f4f7;
+  --color-border: #e4e7ec;
+  --color-muted: #667085;
+
+  --color-primary: #465fff;
+  --color-primary-hover: #3641f5;
+  --color-primary-contrast: #ffffff;
+
+  --color-success: #039855;
+  --color-success-bg: #ecfdf3;
+  --color-warning: #b54708;
+  --color-warning-bg: #fffaeb;
+  --color-danger: #d92d20;
+  --color-danger-bg: #fef3f2;
+  --color-info: #0086c9;
+  --color-info-bg: #f0f9ff;
+
+  --shadow-theme-xs: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  --shadow-theme-sm: 0px 1px 3px 0px rgba(16, 24, 40, 0.1), 0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+  --shadow-theme-md: 0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+  --shadow-tooltip: 0px 4px 6px -2px rgba(16, 24, 40, 0.05), 0px 12px 16px -4px rgba(16, 24, 40, 0.1);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--color-surface);
+  --color-surface-alt: var(--color-surface-alt);
+  --color-border: var(--color-border);
+  --color-muted: var(--color-muted);
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-contrast: var(--color-primary-contrast);
+  --color-success: var(--color-success);
+  --color-success-bg: var(--color-success-bg);
+  --color-warning: var(--color-warning);
+  --color-warning-bg: var(--color-warning-bg);
+  --color-danger: var(--color-danger);
+  --color-danger-bg: var(--color-danger-bg);
+  --color-info: var(--color-info);
+  --color-info-bg: var(--color-info-bg);
+  --shadow-theme-xs: var(--shadow-theme-xs);
+  --shadow-theme-sm: var(--shadow-theme-sm);
+  --shadow-theme-md: var(--shadow-theme-md);
+  --shadow-tooltip: var(--shadow-tooltip);
+  --font-sans: var(--font-outfit);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
